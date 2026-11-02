@@ -1,0 +1,380 @@
+# LINUX MINI PROJECT REPORT
+
+# LIBRARY BOOK INVENTORY AND SEARCH SYSTEM
+
+**A Command-Line Project Using Basic Ubuntu/Linux Commands**
+
+**Submitted By:** Aman Yadav  
+**UID:** 25BCA10031  
+**Course:** Bachelor of Computer Applications (BCA)  
+**Section:** 25BCA-1-A  
+**Platform:** Ubuntu Linux  
+
+---
+
+# PROJECT AT A GLANCE
+
+The Library Book Inventory and Search System is a simple command-line project developed using basic Ubuntu/Linux commands. It helps organise a small library catalogue, search for books by title or category, separate available and issued books, and prepare an inventory report.
+
+**Main Operations:**
+
+1. STORE – Store book details.
+2. SEARCH – Find books by title.
+3. FILTER – Separate available and issued books.
+4. REPORT – Generate an inventory report.
+
+**Tools Used:** mkdir, cd, touch, echo, grep, cut, sort, cat, head, tail and less.
+
+---
+
+# 1. INTRODUCTION
+
+A small library may maintain its book catalogue in notebooks or separate lists. When a student asks for a particular title, category, or book availability, the librarian may need to check several entries manually. This can take time, especially when the collection grows.
+
+The Library Book Inventory and Search System is a simple file-based project. It stores book details in text files and uses Linux commands to search, filter, extract, sort, display, and combine catalogue entries.
+
+This project uses only basic Linux commands without any programming language, database, or shell script.
+
+# 2. PROBLEM STATEMENT
+
+In a small college library, book details and their issue status may be recorded manually. Searching for a title, identifying available books, separating issued books, and preparing an inventory list can become repetitive and may lead to mistakes.
+
+The main problem is to organise a basic book catalogue and make common search and reporting tasks easier using Linux commands.
+
+# 3. WHAT WE ARE GOING TO DO
+
+We will create a folder-based catalogue containing one main file, two filtered files, and two report files.
+
+| File / Folder | Purpose |
+|---|---|
+| data/books.txt | Main catalogue containing 10 sample book records. |
+| data/available.txt | Stores books whose status is Available. |
+| data/issued.txt | Stores books whose status is Issued. |
+| reports/sorted_books.txt | Catalogue sorted alphabetically by book title. |
+| reports/final_inventory.txt | Combined available and issued-book report. |
+
+**Book Record Format:**
+
+Book_ID,Title,Author,Category,Status
+
+**Example:**
+
+B101,The Alchemist,Paulo Coelho,Fiction,Available
+
+# 4. HOW WE WILL DO IT
+
+The following steps will be performed:
+
+- Create the project folder with data and reports subfolders.
+- Create the text files for the catalogue and reports.
+- Enter 10 sample book records in books.txt.
+- Use grep to separate available and issued books.
+- Use cut to extract titles and grep to search by title or category.
+- Use sort to arrange entries alphabetically by title.
+- Use head, tail, and less to view catalogue entries and reports.
+- Combine filtered files into one final inventory report.
+
+# 5. PROJECT FOLDER STRUCTURE
+
+The project will have the following structure:
+
+```text
+Library_Inventory/
+│
+├── data/
+│   ├── books.txt
+│   ├── available.txt
+│   └── issued.txt
+│
+└── reports/
+    ├── sorted_books.txt
+    └── final_inventory.txt
+```
+
+# 6. COMMANDS AND WHAT THEY DO
+
+| Command | Purpose | Example |
+|---|---|---|
+| mkdir | Creates a directory. | mkdir data |
+| cd | Moves into a directory. | cd Library_Inventory |
+| touch | Creates an empty file. | touch books.txt |
+| echo | Adds text with redirection. | echo "Book details" >> books.txt |
+| ls | Lists files and folders. | ls |
+| grep | Searches matching text. | grep ',Available$' books.txt |
+| cut | Extracts selected fields. | cut -d ',' -f2 books.txt |
+| sort | Sorts lines in a file. | sort books.txt |
+| head | Displays first lines. | head -n 3 books.txt |
+| tail | Displays last lines. | tail -n 3 books.txt |
+| less | Opens a file for scrolling. | less books.txt |
+| cat | Displays or combines files. | cat available.txt |
+| mv | Moves or renames a file. | mv old.txt new.txt |
+| chmod | Changes file permissions. | chmod 640 final_inventory.txt |
+| egrep | Searches using extended patterns. | egrep 'Fiction\|Technology' books.txt |
+| fgrep | Searches fixed text. | fgrep 'Atomic Habits' books.txt |
+
+# 7. IMPLEMENTATION: COMMANDS, STEPS AND OUTPUT
+
+## Step 1 – Create Project Folders and Files
+
+Open Ubuntu Terminal and run the following commands:
+
+```bash
+mkdir Library_Inventory
+cd Library_Inventory
+mkdir data reports
+cd data
+touch books.txt available.txt issued.txt
+cd ..
+```
+
+These commands create the project folder, data and reports folders, and the empty text files.
+
+## Step 2 – Enter Book Records
+
+Move into the data folder and add the sample entries. The >> operator appends each record to books.txt.
+
+```bash
+cd data
+
+echo "B101,The Alchemist,Paulo Coelho,Fiction,Available" >> books.txt
+echo "B102,Atomic Habits,James Clear,Self-help,Issued" >> books.txt
+echo "B103,Computer Networks,Tanenbaum,Technology,Available" >> books.txt
+echo "B104,Rich Dad Poor Dad,Robert Kiyosaki,Finance,Available" >> books.txt
+echo "B105,The Hobbit,J.R.R. Tolkien,Fiction,Issued" >> books.txt
+echo "B106,Python Basics,Reema Thareja,Technology,Available" >> books.txt
+echo "B107,Ikigai,Hector Garcia,Self-help,Available" >> books.txt
+echo "B108,DBMS Concepts,Korth,Technology,Issued" >> books.txt
+echo "B109,The Diary of a Young Girl,Anne Frank,Biography,Available" >> books.txt
+echo "B110,Wings of Fire,A.P.J. Abdul Kalam,Biography,Issued" >> books.txt
+
+cat books.txt
+```
+
+The cat command displays the catalogue so that all entries can be checked.
+
+## Step 3 – Separate Available and Issued Books
+
+Run the following commands:
+
+```bash
+grep ',Available$' data/books.txt > data/available.txt
+
+grep ',Issued$' data/books.txt > data/issued.txt
+
+cat data/available.txt
+
+cat data/issued.txt
+```
+
+The grep command checks the final status field. The > symbol saves matching lines in separate files. This makes it easy to view books according to their availability.
+
+## Step 4 – Search and Extract Book Information
+
+Search for a particular title:
+
+```bash
+grep -i "alchemist" data/books.txt
+```
+
+Search for books in the Technology category:
+
+```bash
+grep ",Technology," data/books.txt
+```
+
+Extract book titles:
+
+```bash
+cut -d ',' -f2 data/books.txt
+```
+
+Search Fiction or Technology books:
+
+```bash
+egrep ",(Fiction|Technology)," data/books.txt
+```
+
+Search for exact fixed text:
+
+```bash
+fgrep "Atomic Habits" data/books.txt
+```
+
+The first command searches for a title without depending on letter case. The second finds Technology books. The cut command extracts the second field (Title). The egrep command matches either category, and fgrep searches for exact fixed text.
+
+## Step 5 – Sort and View the Catalogue
+
+Sort books alphabetically by title:
+
+```bash
+sort -t ',' -k2,2 data/books.txt > reports/sorted_books.txt
+```
+
+Display the first three records:
+
+```bash
+head -n 3 reports/sorted_books.txt
+```
+
+Display the last three records:
+
+```bash
+tail -n 3 reports/sorted_books.txt
+```
+
+View the complete sorted catalogue:
+
+```bash
+less reports/sorted_books.txt
+```
+
+The sort command uses the comma as the field separator and sorts by the second field (Title). The head command displays the first three lines, tail displays the last three, and less allows the user to scroll through the file.
+
+Press q to exit less.
+
+## Step 6 – Prepare the Final Inventory Report
+
+Combine available and issued books:
+
+```bash
+cat data/available.txt data/issued.txt > reports/final_inventory.txt
+```
+
+Display the first five records:
+
+```bash
+head -n 5 reports/final_inventory.txt
+```
+
+Display the complete inventory report:
+
+```bash
+cat reports/final_inventory.txt
+```
+
+The cat command combines the available and issued lists in the given order and writes them into final_inventory.txt.
+
+The > symbol creates or overwrites the destination file, whereas >> appends content to an existing file.
+
+# 8. EXAMPLE OUTPUT
+
+**Example 1: Searching for a particular book title**
+
+Command:
+
+```bash
+grep -i "alchemist" data/books.txt
+```
+
+Output:
+
+```text
+B101,The Alchemist,Paulo Coelho,Fiction,Available
+```
+
+**Example 2: Extracting book titles**
+
+Command:
+
+```bash
+cut -d ',' -f2 data/books.txt
+```
+
+Output:
+
+```text
+The Alchemist
+Atomic Habits
+Computer Networks
+Rich Dad Poor Dad
+The Hobbit
+Python Basics
+Ikigai
+DBMS Concepts
+The Diary of a Young Girl
+Wings of Fire
+```
+
+**Example 3: Available Books**
+
+Command:
+
+```bash
+cat data/available.txt
+```
+
+Output:
+
+```text
+B101,The Alchemist,Paulo Coelho,Fiction,Available
+B103,Computer Networks,Tanenbaum,Technology,Available
+B104,Rich Dad Poor Dad,Robert Kiyosaki,Finance,Available
+B106,Python Basics,Reema Thareja,Technology,Available
+B107,Ikigai,Hector Garcia,Self-help,Available
+B109,The Diary of a Young Girl,Anne Frank,Biography,Available
+```
+
+**Example 4: Issued Books**
+
+Command:
+
+```bash
+cat data/issued.txt
+```
+
+Output:
+
+```text
+B102,Atomic Habits,James Clear,Self-help,Issued
+B105,The Hobbit,J.R.R. Tolkien,Fiction,Issued
+B108,DBMS Concepts,Korth,Technology,Issued
+B110,Wings of Fire,A.P.J. Abdul Kalam,Biography,Issued
+```
+
+# 9. HOW THIS SIMPLIFIES A REAL-WORLD ISSUE
+
+A librarian in a small library may need to check whether a title is available, prepare a list of books in a category, or make a separate list of issued books.
+
+Checking every entry manually takes time and can cause errors.
+
+In this project:
+
+- grep searches titles, categories, and book status.
+- cut extracts book titles.
+- sort arranges the catalogue alphabetically.
+- head and tail display selected records.
+- cat displays and combines files to create reports.
+
+These operations make basic catalogue handling quicker, more organised, and easier to verify.
+
+# 10. LIMITATIONS AND POSSIBLE IMPROVEMENTS
+
+**Limitations:**
+
+- This is a learning project, not a complete library management application.
+- The files do not automatically validate entries or update a lending transaction.
+- Plain text files are not suitable for secure multi-user management of a large library.
+- The project requires manual commands to perform operations.
+
+**Possible Improvements:**
+
+- Add more books and categories.
+- Add more search options.
+- Update book status when a book is issued or returned.
+- Generate updated inventory reports.
+- Use a database for managing a larger library.
+
+# 11. CONCLUSION
+
+The Library Book Inventory and Search System demonstrates how Linux commands can solve simple file-management and text-search tasks without writing a program.
+
+Using commands such as mkdir, touch, echo, grep, cut, sort, head, tail, less, and cat, a small library catalogue can be organised, searched, filtered, and reported in a practical way.
+
+This project also provides basic knowledge of Ubuntu/Linux terminal operations, file handling, text processing, and directory management.
+
+**PROJECT COMPLETED**
+
+**Submitted By:** Aman Yadav  
+**UID:** 25BCA10031  
+**Course:** BCA  
+**Section:** 25BCA-1-A
